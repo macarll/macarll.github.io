@@ -41,7 +41,16 @@
                 game.time.events.loop(1000,function(){
                     countdownSeconds = countdownSeconds - 1;
                     game.message.text = countdownSeconds;
+                    if(countdownSeconds === 0){
+                        doDraw();
+                    }
                 });
+            }
+            
+            function doDraw(){
+                gameState = "draw";
+                game.time.events.removeAll();
+                game.message.text = "DRAW!";
             }
           
             
