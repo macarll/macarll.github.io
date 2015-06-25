@@ -26,7 +26,6 @@
             game.standoff = game.add.sprite(0,0);
             game.standoff.loadTexture("standoff");
             game.message = game.add.text(400,400);
-            game.message.text = "Click to Play";
             
             game.input.onDown.add(function(){
                 if(gameState === "start"){
@@ -37,7 +36,9 @@
                 } else if(gameState === "draw"){
                     game.sound.play("fire");
                     doWin();
-                } 
+                } else if(gameState === "tryAgain"){
+                    doStart();
+                }
                     
                 
                  
@@ -48,17 +49,20 @@
             
             function doStart(){
                 gameState = "start";
+                game.message.text = "Click to Play";
+                game.standoff.loadTexture("standoff");
             }
             function doCountdown(){
                 gameState = "countdown";
-                game.message.text = countdownSeconds;
+                var actualCountdown = countdownSeconds;
+                game.message.text = actualCountdown;
                 game.time.events.loop(1000,function(){
-                    countdownSeconds = countdownSeconds - 1;
-                    game.message.text = countdownSeconds;
-                    if(countdownSeconds === 0){
+                    actualCountdown = actualCountdown - 1;
+                    game.message.text = actualCountdown;
+                    if(actualCountdown === 0){
                         doDraw();
                     }
-                })
+                });
                 
             }
             
@@ -75,13 +79,18 @@
                 gameState = "tooSoon";
                 game.time.events.removeAll();
                 game.message.text = "TOO SOON!";
+                  game.time.events.add(1000, function(){
+                     doTryAgain();
+                });
             }
             
             function doWin(){
                 gameState = "win";
-                game.time.events.add(1000, function(){
-                    game.message.text = "YOU WIN!";
-                    game.standoff.loadTexture("win");
+                game.time.events.removeAll();
+                game.message.text = "YOU WIN!";
+                game.standoff.loadTexture("win");
+                 game.time.events.add(1000, function(){
+                     doTryAgain();
                 });
             }
             
@@ -90,7 +99,16 @@
                 game.message.text = "YOU LOSE!";
                 game.standoff.loadTexture("lose");
                 game.sound.play("splat");
+                 game.time.events.add(1000, function(){
+                         doTryAgain();    
+                });
             }
+            
+            function doTryAgain(){
+                gameState = "tryAgain";
+                game.message.text = "Click to Try Again!";
+            }
+            
         
             var game = new Phaser.Game(640, 480, Phaser.AUTO, "", {
                 preload: doPreload,
