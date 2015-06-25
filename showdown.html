@@ -7,6 +7,8 @@
     <body>
         <h3>Click to play, click to shoot first after it says DRAW! to win. Don't shoot too early, or you'll lose!</h3>
         <script>
+        var Phaser = window.Phaser;
+        
         var gameState;
         var countdownSeconds = 3;
         function doPreload(){
@@ -14,7 +16,12 @@
             game.load.crossOrigin = "anonymous";
             game.load.image("standoff", "standoff.png");
             game.load.audio("fire", "fire.mp3");
+            game.load.image("win", "win.png");
+            game.load.image("lose", "lose.png");
+            game.load.audio("splat", "splat.mp3");
+            
         }
+        
         function doCreate(){
             game.standoff = game.add.sprite(0,0);
             game.standoff.loadTexture("standoff");
@@ -27,13 +34,18 @@
                     gameState = "countdown";
                 } else if(gameState === "countdown"){
                     doTooSoon();
-                } else {
+                } else if(gameState === "draw"){
                     game.sound.play("fire");
-                }
+                    doWin();
+                } 
+                    
+                
                  
             });
-            doStart();
-            }
+             
+             doStart();
+        }
+            
             function doStart(){
                 gameState = "start";
             }
@@ -46,23 +58,39 @@
                     if(countdownSeconds === 0){
                         doDraw();
                     }
-                });
+                })
+                
             }
             
             function doDraw(){
                 gameState = "draw";
                 game.time.events.removeAll();
                 game.message.text = "DRAW!";
+                game.time.events.add(1000, function(){
+                         doLose();    
+                });
             }
             
-            function doTooSoon(){
+             function doTooSoon(){
                 gameState = "tooSoon";
                 game.time.events.removeAll();
-                game.message.text = "TOO SOON!"
+                game.message.text = "TOO SOON!";
             }
             
+            function doWin(){
+                gameState = "win";
+                game.time.events.add(1000, function(){
+                    game.message.text = "YOU WIN!";
+                    game.standoff.loadTexture("win");
+                });
+            }
             
-        
+            function doLose(){
+                gameState = "lose";
+                game.message.text = "YOU LOSE!";
+                game.standoff.loadTexture("lose");
+                game.sound.play("splat");
+            }
         
             var game = new Phaser.Game(640, 480, Phaser.AUTO, "", {
                 preload: doPreload,
