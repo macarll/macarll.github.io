@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+</head><body>
+  <div id="everything">
+      <h1>A heading!</h1>
+      <p>Here's some text!</p>
+      <p>Here's a second set of text!</p>
+      <div class="holder">
+          <ul>
+              <li>List Item 1</li>
+              <li>List Item 2</li>
+              <li>List Item 3</li>
+          </ul>
+      </div>
+      <div class="holder">
+          <ul>
+              <li id="changeMe">List Item 4</li>
+              <li>List Item 5</li>
+              <li>List Item 6</li>
+          </ul>
+      </div>
+      <div id="secret">We should hide this!</div>
+      <li>This should not be bold.</li>
+  </div>
+  <script>
+  $("h1").css({color:"blue"});
+  $("body").css({"background-color":"red"});
+  $("#everything").css({"font-size":"115%"});
+  $(".holder").css({"border":"10px solid black"});
+  $("ul li").css({"font-weight":"bold"});
+  $("h1+p").css({"color":"green"});
+  $("#secret").css({"display":"none"});
+  $("#changeMe").html("Not on my list");
+  $("#changeMe").append(" booskie");
+  $("ul>li").html("Not on my list");
+  $("ul>li").append(" booskie");
+  $("#secret").css({"display":'block'});
+  $("#secret").html("This is not hidden");
+  $("#everything").append("<h1 class='newH1'>This is a new h1</h1>");
+  $("h1").css({color:"blue"});
+  </script>
+</body>
+</html>
