@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>The Weather of the Day.</title>        
+        <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+        <h1>The Weather of the Day.</h1>
+        <style>
+        p {
+            border: 6px double lightBlue;
+        }
+    </style>
+    </head>
+    <body> 
+       <p><h3>Current Temp: <span id="currentTemp"></span></h3>
+        <h3>Temp Min: <span id="tempMin"></span></h3>
+        <h3>Temp Max: <span id="tempMax"></span></h3>
+        <h3>Wind Speed: <span id="windSpeed"></span></h3>
+        <h3>Humidity: <span id="humidity"></span></h3>
+        <h3>Clouds: <span id="clouds"></span></h3></p>
+        <center><img src="http://ieeegreentech.org/files/2014/02/new-orleans-skyline-at-night-jon-holiday.jpg"></center>
+        <script>
+            var url = ("http://api.openweathermap.org/data/2.5/weather?q=New%20Orleans&mode=json&units=imperial");
+            $.get(url, function(data){
+                console.log(data);
+                $("#currentTemp").text(data.main.temp);
+                $("#tempMin").text(data.main.temp_min);
+                $("#tempMax").text(data.main.temp_max);
+                $("#windSpeed").text(data.wind.speed);
+                $("#humidity").text(data.main.humidity);
+                $("#clouds").text(data.clouds.all);
+                $("body").css({"background-color":"lightSeaGreen"});
+                $("h3").css({"color":"lemonChiffon"});
+                $("h3").css({"font-size":"165%"});
+                $("h3").css({"text-align":"center"});
+                $("h1").css({"text-align":"center"});
+                $("h1").css({"color":"lemonChiffon"});
+              });
+        </script>
+        
+    </body>
+</html>
