@@ -1,0 +1,15 @@
+#act{
+    border: 6px double indigo;
+    color:royalBlue;
+}
+#start{
+    border: 6px groove deepPink;
+    color:hotPink;
+}
+#end{
+    border: 6px inset purple;
+    color:paleVioletRed;
+}
+body{
+    background-color:springGreen;
+}
