@@ -23,8 +23,21 @@
       </div>
       <div id="secret">We should hide this!</div>
       <li>This should not be bold.</li>
+     <div id="result"></div>
   </div>
+  
   <script>
+  function stringPrinter(message){ 
+      $("#result").text(message);
+  }
+  
+   function funnySentence(noun, adjective, verb, adverb){
+      $("#result").html(noun + " " + adjective + " " + verb + " " + adverb);
+  }
+  function times3(num){
+      return num*3;
+      
+  }
   $("h1").css({color:"blue"});
   $("body").css({"background-color":"red"});
   $("#everything").css({"font-size":"115%"});

@@ -1,0 +1,14 @@
+#blogpost{
+    border: 6px double indigo;
+    color:royalBlue;
+}
+textarea,input{
+    border: 6px groove deepPink;
+    color:hotPink;
+}
+form{
+    text-align: center;
+}
+body{
+    background-color:springGreen;
+}
